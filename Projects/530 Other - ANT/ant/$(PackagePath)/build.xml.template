@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<project name="Main Ant Task" default="main" basedir=".">
+	<!--propertyfile file="build.properties">
+		<entry name="root.dir" value="=..\\..\\..\\.."/>
+	</propertyfile-->
+	<property name="root.dir" value="..\\"/>
+    <target name="main" depends="clean, initialize" />
+
+    <target name="initialize">
+        <mkdir dir="${root.dir}\bin" />
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${root.dir}\dest" />
+    </target>
+
+    <target name="deploy" depends="compile">
+        <mkdir dir="${root.dir}\dest" />
+    </target>
+
+    <target name="clean">
+        <delete dir="${root.dir}\bin" />
+        <delete dir="${root.dir}\dest" />
+        <!--delete>
+            <fileset dir="bin" includes="**/*~" defaultexcludes="false" />
+        </delete-->
+    </target>
+
+</project>

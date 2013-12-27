@@ -1,0 +1,33 @@
+@echo off
+set PAUSE_ERRORS=1
+call bat\SetupANT.bat
+call bat\SetupApplication.bat
+
+echo.
+echo Starting application...
+echo.
+echo %APP_DIR%
+
+:menu
+echo.
+echo Package for target
+echo.
+echo  [1] main       
+echo  [2] compile    
+echo  [3] deploy    
+echo  [3] clean     
+echo.
+
+:choice
+set /P C=[Choice]: 
+echo.
+
+if "%C%"=="1" set TARGET=main
+if "%C%"=="2" set TARGET=compile
+if "%C%"=="2" set TARGET=deploy
+if "%C%"=="3" set TARGET=clean
+
+call ant -f ant\$(PackagePath)\build.xml %TARGET%
+
+:end
+pause

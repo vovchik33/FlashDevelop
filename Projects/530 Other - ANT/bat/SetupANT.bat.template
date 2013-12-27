@@ -1,0 +1,33 @@
+:user_configuration
+
+:: Path to Flex SDK
+set FLEX_SDK=$(FlexSDK)
+set ANT_DIR=
+
+:validation
+if not exist "%FLEX_SDK%\bin" goto flexsdk
+if not exist "%ANT_DIR%\bin" goto antdir
+goto succeed
+
+:flexsdk
+echo.
+echo ERROR: incorrect path to Flex SDK in 'bat\SetupSDK.bat'
+echo.
+echo Looking for: %FLEX_SDK%\bin
+echo.
+if %PAUSE_ERRORS%==1 pause
+exit
+
+:antdir
+echo.
+echo ERROR: incorrect path to ANT in 'bat\SetupANT.bat'
+echo.
+echo Looking for: %ANT_DIR%\bin
+echo.
+if %PAUSE_ERRORS%==1 pause
+exit
+
+:succeed
+set PATH=%FLEX_SDK%\bin;%PATH%
+set PATH=%ANT_DIR%\bin;%PATH%
+
