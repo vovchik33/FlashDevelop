@@ -12,9 +12,10 @@ echo %APP_DIR%
 echo.
 echo Package for target
 echo.
-echo  [1] main       
-echo  [2] compile    
-echo  [3] deploy    
+echo  [1] info       
+echo  [2] install    
+echo  [3] compile    
+echo  [3] deploy     
 echo  [3] clean     
 echo.
 
@@ -22,10 +23,11 @@ echo.
 set /P C=[Choice]: 
 echo.
 
-if "%C%"=="1" set TARGET=main
-if "%C%"=="2" set TARGET=compile
-if "%C%"=="2" set TARGET=deploy
-if "%C%"=="3" set TARGET=clean
+if "%C%"=="1" set TARGET=info
+if "%C%"=="2" set TARGET=install
+if "%C%"=="3" set TARGET=compile
+if "%C%"=="4" set TARGET=deploy
+if "%C%"=="5" set TARGET=clean
 
 call ant -f ant\$(PackagePath)\build.xml %TARGET%
 
