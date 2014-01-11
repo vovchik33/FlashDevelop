@@ -6,7 +6,6 @@ call bat\SetupApplication.bat
 echo.
 echo Starting application...
 echo.
-echo %APP_DIR%
 
 :menu
 echo.
@@ -29,7 +28,13 @@ if "%C%"=="3" set TARGET=compile
 if "%C%"=="4" set TARGET=deploy
 if "%C%"=="5" set TARGET=clean
 
-call ant -f ant\$(PackagePath)\build.xml %TARGET%
+echo.
+echo Package Project
+echo Target: %TARGET%
+echo.
+
+call ant -f %APP_DIR%\build.xml %TARGET%
+goto end
 
 :end
 pause

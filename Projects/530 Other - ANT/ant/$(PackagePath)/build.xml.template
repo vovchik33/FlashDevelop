@@ -1,11 +1,36 @@
 <?xml version="1.0"?>
 <project name="$(PROJECTNAME)" default="info" basedir=".">
+	<property name="project.release.version" value="v.0.0.0"/>
+
 	<property name="root.dir" value="..\\"/>
+	<property name="compile.dir" value="${root.dir}\\target"/>
+	<property name="deploy.dir" value="${root.dir}\\dest"/>
+	<property name="build.number.dir" value="${root.dir}"/>
 	
-    <target name="info" />
+	<target name="checkBuildNumber">
+		<condition property="hasBuildNumber">
+			<not>
+				<resourceexists>
+					<file file="${build.number.dir}\\build.properties"/>
+				</resourceexists>
+			</not>
+		</condition>
+	</target>
+    
+    <target name="buildversion" depends="checkBuildNumber" if="hasBuildNumber">
+		<propertyfile file="${build.number.dir}\\build.properties"
+			comment="Build Number for ANT. Edit not!">
+			<entry key="build.number" type="int" default="1" />
+		</propertyfile>
+	</target>
+    
+    <target name="info" depends="buildversion">
+		<property file="${build.number.dir}\\build.properties"/>
+		<print.info/>
+	</target>
 
     <target name="initialize">
-        <mkdir dir="${root.dir}\target" />
+        <mkdir dir="${compile.dir}" />
     </target>
 
     <target name="compile">
@@ -18,13 +43,20 @@
 
     <target name="deploy" depends="compile">
         <echo>Deploy Project</echo>
-        <mkdir dir="${root.dir}\dest" />
+        <mkdir dir="${deploy.dir}" />
     </target>
 
     <target name="clean">
         <echo>Clean Project</echo>
-		<delete dir="${root.dir}\bin" />
-        <delete dir="${root.dir}\dest" />
+		<delete dir="${compile.dir}" />
+        <delete dir="${deploy.dir}" />
     </target>
+	
+	<macrodef name="print.info">
+		<sequential>
+			<echo>Project Release ${project.release.version}</echo>
+			<echo>Build ${build.number}</echo>
+		</sequential>
+	</macrodef>
 
 </project>

@@ -7,7 +7,4 @@ set APP_XML=application.xml
 :: Files to package
 set APP_DIR=ant\$(PackagePath)
 
-:: Output packages
-set DIST_PATH=dist
-
 :end
